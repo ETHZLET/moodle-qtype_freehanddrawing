@@ -53,6 +53,7 @@ class qtype_freehanddrawing_edit_form extends question_edit_form {
         		// --------------------------------------------------------
         		// This is in case duplicates are requested to be made (so that the saving code in question.php would know there was a pre-existing question):
         		$mform->addElement('hidden', 'pre_existing_question_id', $question->id);
+        		$mform->setType('pre_existing_question_id', PARAM_INT);
         		// --------------------------------------------------------
         		
         		

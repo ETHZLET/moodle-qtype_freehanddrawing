@@ -284,14 +284,15 @@ class qtype_freehanddrawing_renderer extends qtype_renderer {
 		if ($bgimageArray === null) {
 			return html_writer::tag('div', '<h1>Unable to fetch canvas background image file');
 		}
-		
+
+        qtype_freehanddrawing_renderer::requireTranslationsIntoJS();
+        
 		$canvas = "<div class=\"qtype_freehanddrawing_id_" . $question->id . "\">";
 		
 		if ($options->readonly) {
 			$readonlyCanvas = ' readonly-canvas';
 			$correctAnswer = reset($question->answers)->answer;
 			list($blendedImgDataURL, $matchPercentage) = self::compare_drawings($correctAnswer, $currentAnswer, true);
-			qtype_freehanddrawing_renderer::requireTranslationsIntoJS();
 			if ($options->correctness === 0) {
 				$this->page->requires->yui_module('moodle-qtype_freehanddrawing-form', 'Y.Moodle.qtype_freehanddrawing.form.init', array($question->id, $question->radius, $currentAnswer));
 			} else {
