@@ -75,10 +75,17 @@ class qtype_freehanddrawing_edit_form extends question_edit_form {
   				// This will be a UI aid to make sure the user knows a file has been chosen rather than just displaying the empty file picker widget 
 				// which doesn't indicate that there is already a background image file associated with the question.
         		$mform->addElement('header', 'qtype_freehanddrawing_drawing_background_image_selected', get_string('drawing_background_image', 'qtype_freehanddrawing'));
-        		$mform->addElement('html', "<div class=\"fitem\"><div class=\"fitemtitle\">" .
-        				get_string("selected_background_image_filename", "qtype_freehanddrawing")."</div><div class=\"felement\"><a HREF='$bgImageArray[0]'>$bgImageArray[3]</a>&nbsp;<input type=\"button\" class=\"fp-btn-choose\" value=\"Choose a different file...\" name=\"qtype_freehanddrawing_image_filechoose_another\"></DIV></DIV>");
-        	
-        	
+        		$mform->addElement('html', implode("\n", array(
+				"<div class=\"fitem\">",
+				"    <div class=\"fitemtitle\">",
+				get_string("selected_background_image_filename", "qtype_freehanddrawing"),
+				"    </div>",
+				"    <div class=\"felement\">",
+				"         <a href='$bgImageArray[0]'>$bgImageArray[3]</a>&nbsp;",
+				"         <input type=\"button\" class=\"fp-btn-choose\" value=\"Choose a different file...\" name=\"qtype_freehanddrawing_image_filechoose_another\">",
+				"    </div>",
+				"</div>"
+			));
         	} else {
         		// No draft bg image, no pre-existing saved files
         		// Seems like we are in "add new" (BRAND new) form mode
@@ -93,8 +100,14 @@ class qtype_freehanddrawing_edit_form extends question_edit_form {
         $mform->setExpanded('qtype_freehanddrawing_drawing_background_image');
         $mform->addElement('filepicker', 'qtype_freehanddrawing_image_file', get_string('file'), null,
                            array('maxbytes' => 1572864/*1.5MB*/, 'maxfiles' => 1, 'accepted_types' => array('.png', '.jpg', '.jpeg', '.gif')));
-        $mform->addElement('html', "<div class=\"fitem\"><div class=\"fitemtitle\">" .
-        		get_string("accepted_background_image_file_types", "qtype_freehanddrawing")."</div><div class=\"felement\">PNG, JPG, GIF</DIV></DIV>");
+        $mform->addElement('html', implode("\n", array(
+		"<div class=\"fitem\">",
+		"    <div class=\"fitemtitle\">",
+        	get_string("accepted_background_image_file_types", "qtype_freehanddrawing"),
+		"    </div>",
+		"    <div class=\"felement\">PNG, JPG, GIF</div>",
+		"</div>"
+	));
         
         // Drawing Parameters and *actual* canvas
         $mform->addElement('header', 'qtype_freehanddrawing_drawing', get_string('drawing', 'qtype_freehanddrawing'));
@@ -141,10 +154,21 @@ class qtype_freehanddrawing_edit_form extends question_edit_form {
         				100 => 100));
         $mform->addElement('textarea', 'qtype_freehanddrawing_textarea_id_0', get_string("drawingrawdata", "qtype_freehanddrawing"), 'class="qtype_freehanddrawing_textarea" wrap="virtual" rows="20" cols="50"');
         $mform->setDefault('qtype_freehanddrawing_textarea_id_0', $canvasTextAreaPreexistingAnswer);
-        $mform->addElement('html', '<div class="fitem"><div class="fitemtitle">' . 
-        		get_string("drawanswer", "qtype_freehanddrawing").'</div><div class="felement"><div class="qtype_freehanddrawing_no_background_image_selected_yet" '.$noBackgroundImageSelectedYetStyle.'>' . 
-        		get_string('nobackgroundimageselectedyet', 'qtype_freehanddrawing') . 
-        		'</div><div class="qtype_freehanddrawing_container_div" '.$eraserHTMLParams.'><img ALT="'.get_string("erase_canvas", "qtype_freehanddrawing").'" SRC="'.$CFG->wwwroot . '/question/type/freehanddrawing/pix/Empty-frame.png" CLASS="qtype_freehanddrawing_eraser" ID="qtype_freehanddrawing_eraser_id_0" '.$eraserHTMLParams.'><img ALT="'.get_string("eraser_tool", "qtype_freehanddrawing").'" SRC="'.$CFG->wwwroot . '/question/type/freehanddrawing/pix/Eraser-icon.png" CLASS="qtype_freehanddrawing_eraser_tool" ID="qtype_freehanddrawing_eraser_tool_id_0" '.$eraserHTMLParams.'><canvas class="qtype_freehanddrawing_canvas" '.$canvasHTMLParams.'>');
+        $mform->addElement('html', implode("\n", array(
+		"<div class=\"fitem\"><div class=\"fitemtitle\">",
+		get_string("drawanswer", "qtype_freehanddrawing"),
+		"</div>",
+		"<div class=\"felement\">",
+		"    <div class=\"qtype_freehanddrawing_no_background_image_selected_yet\" ".$noBackgroundImageSelectedYetStyle.">",
+		get_string('nobackgroundimageselectedyet', 'qtype_freehanddrawing'),
+        	"    </div>",
+		"    <div class=\"qtype_freehanddrawing_container_div\" ".$eraserHTMLParams.">",
+		"        <img alt=\"".get_string("erase_canvas", "qtype_freehanddrawing")."\" src=\"" . $CFG->wwwroot . "/question/type/freehanddrawing/pix/Empty-frame.png\" class=\"qtype_freehanddrawing_eraser\" id=\"qtype_freehanddrawing_eraser_id_0\" " . $eraserHTMLParams . ">",
+		"        <img alt=\"".get_string("eraser_tool", "qtype_freehanddrawing")."\" src=\"" . $CFG->wwwroot . "/question/type/freehanddrawing/pix/Eraser-icon.png\" class=\"qtype_freehanddrawing_eraser_tool\" id=\"qtype_freehanddrawing_eraser_tool_id_0\" " . $eraserHTMLParams . ">",
+		"        <canvas class=\"qtype_freehanddrawing_canvas\" " . $canvasHTMLParams . ">",
+	        "    </div>",
+	        "</div>"
+	));
 
         $this->add_interactive_settings();
 
