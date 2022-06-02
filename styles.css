@@ -31,6 +31,7 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+	touch-action: none;
 }
 .qtype_freehanddrawing_eraser {
 	text-align: left;
